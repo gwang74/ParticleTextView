@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.yasic.library.particletextview.MovingStrategy.MovingStrategy;
 import com.yasic.library.particletextview.Object.Particle;
@@ -241,6 +242,8 @@ public class ParticleTextView extends View {
             }
         }
         if ((targetTextArray == null && !isLoop) || (targetTextArray != null && textIterator == targetTextArray.length && !isLoop)) {
+            isAnimationStop = true;
+            Toast.makeText(getContext(), "" + isAnimationStop(), Toast.LENGTH_SHORT).show();
             return;
         }
         if (delay >= 0) {
