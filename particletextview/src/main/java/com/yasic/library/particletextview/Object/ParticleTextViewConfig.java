@@ -17,25 +17,28 @@ public class ParticleTextViewConfig {
     private String[] particleColorArray = null;
     private MovingStrategy movingStrategy = new RandomMovingStrategy();
     private long delay = 1000;
+    private boolean isLoop = true;
 
-    private ParticleTextViewConfig(){}
+    private ParticleTextViewConfig() {
+    }
 
     public static class Builder {
         private ParticleTextViewConfig particleTextViewConfig = null;
-        public Builder(){
+
+        public Builder() {
             this.particleTextViewConfig = new ParticleTextViewConfig();
         }
 
-        public Builder setColumnStep(int columnStep){
-            if (columnStep < 0){
+        public Builder setColumnStep(int columnStep) {
+            if (columnStep < 0) {
                 columnStep = 0;
             }
             particleTextViewConfig.columnStep = columnStep;
             return this;
         }
 
-        public Builder setRowStep(int rowStep){
-            if (rowStep < 0){
+        public Builder setRowStep(int rowStep) {
+            if (rowStep < 0) {
                 rowStep = 0;
             }
             particleTextViewConfig.rowStep = rowStep;
@@ -43,7 +46,7 @@ public class ParticleTextViewConfig {
         }
 
         public Builder setReleasing(double releasing) {
-            if (releasing < 0){
+            if (releasing < 0) {
                 releasing = 0;
             }
             particleTextViewConfig.releasing = releasing;
@@ -51,7 +54,7 @@ public class ParticleTextViewConfig {
         }
 
         public Builder setMiniDistance(double miniDistance) {
-            if (miniDistance < 0){
+            if (miniDistance < 0) {
                 miniDistance = 0;
             }
             particleTextViewConfig.miniJudgeDistance = miniDistance;
@@ -73,16 +76,16 @@ public class ParticleTextViewConfig {
             return this;
         }
 
-        public Builder setParticleRadius(float radius){
-            if (radius < 0){
+        public Builder setParticleRadius(float radius) {
+            if (radius < 0) {
                 Log.e("ConfigWarning", "Particle radius should not be negative");
             }
             particleTextViewConfig.particleRadius = radius;
             return this;
         }
 
-        public Builder setParticleColorArray(String[] particleColorArray){
-            if (particleColorArray == null || particleColorArray.length == 0){
+        public Builder setParticleColorArray(String[] particleColorArray) {
+            if (particleColorArray == null || particleColorArray.length == 0) {
                 Log.e("ConfigError", "The length of particleColorArray must bigger than 0!Has set it to random color array");
                 particleColorArray = null;
             }
@@ -90,8 +93,8 @@ public class ParticleTextViewConfig {
             return this;
         }
 
-        public Builder setMovingStrategy(MovingStrategy movingStrategy){
-            if (movingStrategy == null){
+        public Builder setMovingStrategy(MovingStrategy movingStrategy) {
+            if (movingStrategy == null) {
                 Log.e("ConfigError", "Moving strategy cannot be null!Has set it to RandomMovingStrategy");
                 movingStrategy = new RandomMovingStrategy();
             }
@@ -99,15 +102,20 @@ public class ParticleTextViewConfig {
             return this;
         }
 
-        public Builder setDelay(Long delay){
-            if (delay < (long)-1){
-                delay = (long)-1;
+        public Builder setDelay(Long delay) {
+            if (delay < (long) -1) {
+                delay = (long) -1;
             }
             particleTextViewConfig.delay = delay;
             return this;
         }
 
-        public ParticleTextViewConfig instance(){
+        public Builder setIsLoop(boolean isLoop) {
+            particleTextViewConfig.isLoop = isLoop;
+            return this;
+        }
+
+        public ParticleTextViewConfig instance() {
             return particleTextViewConfig;
         }
     }
@@ -154,5 +162,9 @@ public class ParticleTextViewConfig {
 
     public long getDelay() {
         return delay;
+    }
+
+    public boolean getIsLoop() {
+        return isLoop;
     }
 }

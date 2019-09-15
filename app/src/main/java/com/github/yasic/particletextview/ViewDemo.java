@@ -24,20 +24,22 @@ public class ViewDemo extends AppCompatActivity {
         ParticleTextView particleTextView1 = (ParticleTextView) findViewById(R.id.particleTextView1);
         ParticleTextViewConfig config1 = new ParticleTextViewConfig.Builder()
                 .setTargetText("Loading")
-                .setReleasing(0.4)
+                .setReleasing(0.02)
                 .setParticleRadius(4)
                 .setMiniDistance(1)
                 .setTextSize(150)
                 .setRowStep(9)
                 .setColumnStep(9)
+                .setIsLoop(false)
                 .instance();
         particleTextView1.setConfig(config1);
 
         ParticleTextView particleTextView2 = (ParticleTextView) findViewById(R.id.particleTextView2);
         VerticalStrategy verticalStrategy = new VerticalStrategy();
         ParticleTextViewConfig config2 = new ParticleTextViewConfig.Builder()
-                .setTargetText("ParticleTextView")
-                .setReleasing(0.5)
+                .setTargetText(new String[]{"Loading", "Sample", "Message"})
+                .setReleasing(0.03)
+                .setIsLoop(false)
                 .setParticleRadius(3)
                 .setTextSize(120)
                 .setMiniDistance(0.5)
