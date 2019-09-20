@@ -91,13 +91,20 @@ public class ParticleTextView extends View {
     public void startAnimation() {
         this.isAnimationOn = true;
         this.isAnimationFrozen = false;
+        this.isAnimationStop = false;
+        this.isAnimationPause = false;
         setParticles = false;
         invalidate();
     }
 
     public void stopAnimation() {
         this.isAnimationOn = false;
-        this.textIterator = 0;
+        this.isAnimationStop = true;
+        if (this.targetTextArray != null) {
+            this.textIterator = this.targetTextArray.length;
+            this.setParticles = false;
+        }
+//        invalidate();
     }
 
     public boolean isAnimationPause() {
@@ -145,6 +152,15 @@ public class ParticleTextView extends View {
         }
 
         if (!isAnimationOn) {
+            if (isAnimationStop) {
+                for (int i = 0; i < particles.length; i++) {
+                    canvas.save();
+                    if (particles[i] != null) {
+                        textPaint.setColor(Color.parseColor(particles[i].getParticleColor()));
+                        canvas.drawCircle((int) particles[i].getTargetX(), (int) particles[i].getTargetY(), particles[i].getRadius(), textPaint);
+                    }
+                }
+            }
             return;
         }
 
@@ -241,9 +257,8 @@ public class ParticleTextView extends View {
                 break;
             }
         }
-        if ((targetTextArray == null && !isLoop) || (targetTextArray != null && textIterator == targetTextArray.length && !isLoop)) {
-            isAnimationStop = true;
-            Toast.makeText(getContext(), "" + isAnimationStop(), Toast.LENGTH_SHORT).show();
+
+        if ((targetTextArray == null && isAnimationStop && !isLoop) || (targetTextArray != null && textIterator == targetTextArray.length && isAnimationStop && !isLoop)) {
             return;
         }
         if (delay >= 0) {
